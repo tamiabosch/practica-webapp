@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif');
+
+body {
+  background-color: #fff;
+  color: #333333;
+  margin: 0;
+  font-family: 'Droid Serif', serif;
+}
+
+header, main {
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 98%;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 36px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li a {
+  color: cornflowerblue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/**neu von mir **/
+main div ul {
+    text-decoration: none;
+    margin: 30px 0px 20px;
+}
+main div ul li {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+main div ul li:first-child {
+  border-top: 1px solid #777;
+}
+
+main div ul li:last-child {
+  border-bottom: 1px solid #777;
+}
+
+main div ul label {
+  display: inline-block;
+  width: 15em;
+}
+
+main div ul input {
+  border: 1px solid #aaa;
+  box-shadow: 0px 0px 3px #ccc, 0 5px 8px #eee inset;
+  border-radius:2px;
+}
+/** ende neu **/
+
+section {
+  margin-top: 80px;
+  counter-reset: section;
+}
+
+footer {
+  height: 50px;
+  width: 100%;
+  margin-top: 100px;
+  background-color: steelblue;
+  font-size: 80%;
+  color: white;
+  text-align: center;
+  line-height: 50px; /* <-- this is what you must define */
+}
+
+footer > a {
+  color: lightgray;
+}
+
+.pregunta {
+  margin-top: 1ex;
+  margin-bottom: 1ex;
+}
+
+/** alter class code **/
+.idioma {
+  font-style: italic;
+}
+
+.bloque {
+  background-color: whitesmoke;
+  border: 1px solid lightgray;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 6px 6px 3px slategray;
+  position: relative;
+}
+
+.bloque::before {
+  counter-increment: section;
+  content: 'Pregunta ' counter(section);
+}
+
+.respuesta[data-valor="true"]::after {
+  content: 'Verdado';
+}
+
+.respuesta[data-valor="false"]::after {
+  content: 'Falso';
+}
+.borra {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  cursor: pointer;
+}
+
+.pin {
+  position: absolute;
+  top: 3px;
+  right: 25px;
+  cursor: pointer;
+}
+
+.fixed{
+  color:red;
+}
+
+.notfixed {
+  color: black;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+
+encabezado-cuestionario h2 {
+  font-weight: bold;
+  font-size: 25px;
+}
+encabezado-cuestionario .wiki {
+  font-size: 90%;
+}
+encabezado-cuestionario img {
+  vertical-align: text-top;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border: 1px solid lightgray;
+}

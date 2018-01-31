@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>descripcion-wikipedia</title>
+        <meta charset="utf-8"/>
+        <link rel="import" href="https://polygit.org/components/polymer/polymer-element.html">
+    </head>
+    <body>
+      <dom-module id="descripcion-wikipedia">
+        <template>
+          <div class="wiki">[[descripcion]]</div>
+        </template>
+        <script>
+          class DescripcionWikipedia extends Polymer.Element {
+            static get is() { return "descripcion-wikipedia"; }
+            // configure owner property
+            static get properties() {
+              return {
+                tema: String,
+                descripcion: String
+              };
+            }
+            connectedCallback() {
+              super.connectedCallback();
+              var componente = this;
+              fetch(componente.descripcion + componente.tema)
+              .then(function(response) {
+                if (!response.ok) {
+                  throw Error(response.statusText);
+                }
+                return response.json();// llama a JSON.parse()
+              })
+              .then(function(responseAsJson) {
+                var pageId = Object.keys(responseAsJson.query.pages)[0];
+                var resultado = responseAsJson.query.pages[pageId].extract;
+                if(resultado != "" && resultado != null) {
+                  componente.descripcion = resultado;
+                } else {
+                  componente.descripcion = "";
+                }
+              })
+              .catch(function(error) {
+                console.log('Ha habido un problema: \n', error);
+              });
+              }
+          }
+          customElements.define(DescripcionWikipedia.is, DescripcionWikipedia);
+        </script>
+      </dom-module>
+    </body>
+
+</html>

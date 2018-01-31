@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>encabezado-cuestionario</title>
+        <meta charset="utf-8"/>
+        <link rel="import" href="https://polygit.org/components/polymer/polymer-element.html">
+    </head>
+    <body>
+      
+<dom-module id="encabezado-cuestionario">
+    
+      <template>
+        <h2>
+          <imagen-flickr tema="{{tema}}" url="{{url}}"></imagen-flickr>     
+          Cuestionario sobre [[tema]]
+        </h2>
+        <descripcion-wikipedia tema="{{tema}}" descripcion="{{descripcion}}"></descripcion-wikipedia> 
+      </template>
+      <script>
+        class EncabezadoCuestionario extends Polymer.Element {
+          static get is() { return "encabezado-cuestionario"; }
+          // configure owner property
+          static get properties() {
+            return {
+              tema: String
+            };
+          }
+          constructor() {
+            super();
+            var componente=this;  // aquí this apunta al componente web
+            componente.descripcion = 'https://es.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&titles=';
+            componente.url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a3ffde53bc2ade8ba32a2ce28e9265b6&tags=';
+          }
+        } 
+        customElements.define(EncabezadoCuestionario.is, EncabezadoCuestionario);
+      </script>
+    
+    </dom-module>
+    </body>
+</html>

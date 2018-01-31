@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>encabezado-cuestionario</title>
+        <meta charset="utf-8"/>
+        <link rel="import" href="https://polygit.org/components/polymer/polymer-element.html">
+    </head>
+    <body>
+      
+<dom-module id="imagen-flickr">
+    
+      <template>
+        <img src="[[url]]" alt="[[tema]]">
+      </template>
+      
+      <script>
+        class ImagenFlickr extends Polymer.Element {
+          static get is() { return "imagen-flickr"; }
+          // configure owner property
+          static get properties() {
+            return {
+              tema: String,
+              url: String
+            };
+          }
+          connectedCallback() {
+            super.connectedCallback();
+            var componente = this;
+            fetch(componente.url + componente.tema +'&format=json&nojsoncallback=1')
+            .then(function(response) {
+              if (!response.ok) {
+                throw Error(response.statusText);
+              } 
+              return response.json();
+            })
+            .then(function(responseAsJson) {
+              if(responseAsJson.photos.photo[0] != null){
+                var photoID = responseAsJson.photos.photo[0].id;
+                return fetch('https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=a3ffde53bc2ade8ba32a2ce28e9265b6&photo_id='+photoID+'&format=json&nojsoncallback=1');
+              } else {
+                var tierra = 'https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_east_540.jpg';
+                componente.url = tierra;
+              }
+              
+            }).then(function(response) {
+              if (!response.ok) {
+                throw Error(response.statusText);
+              } 
+              return response.json();
+            }).then(function(sizesList){
+              var source = sizesList.sizes.size[0].source;
+              componente.url=source;
+            })
+            .catch(function(error) {
+              console.log('Ha habido un problema: \n', error);
+            })
+          }
+        }
+        customElements.define(ImagenFlickr.is, ImagenFlickr);
+      </script>
+    
+    </dom-module>
+    </body>
+
+</html>
